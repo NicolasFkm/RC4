@@ -1,8 +1,7 @@
 #include <stdio.h>
 
-void ksa(unsigned char state[], unsigned char key[], int len){
+void ksa(unsigned char *state, unsigned char *key, int len){
    int i,j=0,t;
-
    for (i=0; i < 256; ++i)
       state[i] = i;
    for (i=0; i < 256; ++i) {
@@ -13,13 +12,13 @@ void ksa(unsigned char state[], unsigned char key[], int len){
    }
 }
 
-void prga(unsigned char *s, unsigned char *Data, unsigned long Len){
+void prga(unsigned char *s, unsigned char *texto, int len){
     int i = 0;
     int j = 0;
     int t = 0;
-    unsigned long k = 0;
-    unsigned char tmp;
-    for(k=0;k<Len;k++)
+    int k = 0;
+    char tmp;
+    for(k=0;k<len;k++)
     {
         i=(i+1)%256;
         j=(j+s[i])%256;
@@ -27,7 +26,7 @@ void prga(unsigned char *s, unsigned char *Data, unsigned long Len){
         s[i] = s[j];
         s[j] = tmp;
         t=(s[i]+s[j])%256;
-        Data[k] ^= s[t];
+        texto[k] ^= s[t];
     }
 }
 
